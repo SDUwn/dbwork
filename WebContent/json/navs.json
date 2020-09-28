@@ -1,0 +1,60 @@
+{
+	"contentManagement": [{
+			"title": "航班信息",
+			"icon": "&#xe716;",
+			"href": "",
+			"spread": true,
+			"children": [{
+				"title": "查询",
+				"icon": "",
+				"href": "page/flight.jsp",
+				"spread": false
+			}]
+		}, {
+			"title": "订票信息",
+			"icon": "&#xe653;",
+			"href": "",
+			"spread": true,
+			"children": [{
+					"title": "已订机票",
+					"icon": "",
+					"href": "page/bookedTicket.jsp",
+					"spread": false
+				},
+				{
+					"title": "已退机票",
+					"icon": "",
+					"href": "page/refusedTicket.jsp",
+					"spread": false
+				},
+				{
+					"title": "过期机票",
+					"icon": "",
+					"href": "page/timeoutTicket.jsp",
+					"spread": false
+				}
+			]
+		}, {
+			"title": "用户中心",
+			"icon": "&#xe770;",
+			"href": "",
+			"spread": true,
+			"children": [{
+					"title": "个人信息",
+					"icon": "",
+					"href": "page/myself.jsp",
+					"spread": false
+				},
+				{
+					"title": "修改个人信息",
+					"icon": "",
+					"href": "page/changeMyself.jsp",
+					"spread": false
+				}
+			]
+		}
+
+
+	]
+
+}

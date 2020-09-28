@@ -1,0 +1,21 @@
+{
+	"contentManagement": [{
+			"title": "航班信息",
+			"icon": "&#xe716;",
+			"href": "page_admin/ticket_admin.jsp",		
+			"children": []
+		}, {
+			"title": "旅客信息",
+			"icon": "&#xe770;",
+			"href": "page_admin/user_admin.jsp",
+			"children": []
+		}, {
+			"title": "财务信息",
+			"icon": "&#xe653;",
+			"href": "page_admin/income_admin.jsp",
+			"spread": false,
+			"children": []
+		}
+	]
+
+}
