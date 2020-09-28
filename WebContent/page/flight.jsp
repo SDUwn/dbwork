@@ -107,7 +107,7 @@ $(function() {
 		//$("#text").val($(this).closest("tr").find("td").eq(0).text());
 		flightID=$(this).closest("tr").find("td").eq(0).text();
 		createXMLHttpRequest();
-		var url = "doBook.jsp?flightID='"+flightID+"'";  
+		var url = "doBook.jsp?flightID="+flightID+"";  
 	    XMLHttpReq.open("GET", url, true);  
 	    XMLHttpReq.onreadystatechange = processResponse1;//指定响应函数  
 	    XMLHttpReq.send(null);
