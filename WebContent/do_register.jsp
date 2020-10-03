@@ -35,6 +35,6 @@ System.out.println(user_name);
  if(flag==true)
 	 session.setAttribute("info", "注册成功，请登录!");//将name的内容赋值给UserName
  %>
- <jsp:forward page="login.jsp"></jsp:forward>//跳转页面
+ <jsp:forward page="index.html"></jsp:forward>//跳转页面
 </body>
 </html>

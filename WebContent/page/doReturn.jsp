@@ -9,7 +9,7 @@ Dbutil util=new Dbutil();
 ResultSet rs=null;
 String SQL="";
 SQL=" update ticket ";
-SQL+=" set ticket_state='returned' ";
+SQL+=" set ticket_state='returned',returntime=NOW() ";
 SQL+=" where ticket_ID="+ticket_ID+" ";
 util.update(SQL);
 System.out.println(SQL);

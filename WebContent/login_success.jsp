@@ -37,9 +37,9 @@
 								<img src="images/face_wn.jpg" class="layui-nav-img userAvatar" width="35" height="35">
 								<cite class="adminName"><%=UserName %></cite>&nbsp;</a>
 							<dl class="layui-nav-child">
-								<dd><a href="login.jsp" class="transform"><i class="layui-icon">&#xe66f;</i><cite>切换账号</cite></a></dd>
-								<dd><a href="javascript:;" data-url="changePwd.html"><i class="layui-icon ">&#xe770;</i><cite>修改密码</cite></a></dd>
-								<dd><a href="login.jsp" class="signOut"><i class="layui-icon">&#xe682;</i><cite>退出</cite></a></dd>
+								<dd><a href="index.html" class="transform"><i class="layui-icon">&#xe66f;</i><cite>切换账号</cite></a></dd>
+								<dd><a href="changePassword.jsp"><i class="layui-icon ">&#xe770;</i><cite>修改密码</cite></a></dd>
+								<dd><a href="index.html" class="signOut"><i class="layui-icon">&#xe682;</i><cite>退出</cite></a></dd>
 							</dl>
 						</li>
 					</ul>

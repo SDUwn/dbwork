@@ -6,10 +6,10 @@
 <meta charset="UTF-8">
 <title>登录失败</title>
 </head>
-<body>
+<body style="text-align:center;">
 <hr>
 <br>
 <h2><font color="red">Sorry,Login Failed</font></h2><br>
-<font color="red"><a href="login.jsp">点击</a> 重新登录!</font>
+<font color="red"><a href="index.html">点击</a> 重新登录!</font>
 </body>
 </html>

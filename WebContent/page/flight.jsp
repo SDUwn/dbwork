@@ -17,8 +17,17 @@
 </head>
 
 <%
+String ID=session.getAttribute("ID").toString();
+String cert_num="null";
 Dbutil util=new Dbutil();
-String queryNumberSQL="";
+String SQL="";
+SQL="select cernum from passenger where user_ID='"+ID+"'";
+ResultSet rs;
+rs=util.query(SQL);
+if(rs.next())
+	cert_num=rs.getString("cernum");
+session.setAttribute("cert_num", cert_num);
+System.out.println(cert_num);
 %>
 
 <body>
@@ -42,7 +51,6 @@ String queryNumberSQL="";
 </div>
 
 <div id="div1">
-
 <table class="layui-table">
   <thead>
     <tr>
@@ -60,8 +68,8 @@ String queryNumberSQL="";
   </thead>
   <tbody>
     <%
-    queryNumberSQL="SELECT flight_ID,plane_type,company_name,A_price,B_price,C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,end_time from flight,airport as a,airport as b,plane,company where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='normal' and plane.company_ID=company.company_ID ";
-    ResultSet rs=util.query(queryNumberSQL);
+    SQL="SELECT flight_ID,plane_type,company_name,A_price,B_price,C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,end_time from flight,airport as a,airport as b,plane,company where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='normal' and plane.company_ID=company.company_ID ";
+    rs=util.query(SQL);
     while(rs.next()){
     	Flight flight=new Flight();
     	flight.flight_id=rs.getInt("flight_id");
@@ -97,23 +105,57 @@ String queryNumberSQL="";
   </tbody>
 </table>
 </div>
-
+<script src="../layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
 var XMLHttpReq; 
 var startcity,endcity,startcity;
 var flightID;
+var content_html;
+var type;
+if(<%=cert_num%>==null){
+	//alert()
+	content_html='<div style="padding: 20px 100px;">请先去完善乘客信息！</div>';
+	type=1;
+}else{
+	content_html='..//page//generateTicket.jsp';
+	type=2;
+}
 $(function() {
 	$("#div1").on("click", ":button", function(event) {
-		//$("#text").val($(this).closest("tr").find("td").eq(0).text());
 		flightID=$(this).closest("tr").find("td").eq(0).text();
-		createXMLHttpRequest();
-		var url = "doBook.jsp?flightID="+flightID+"";  
-	    XMLHttpReq.open("GET", url, true);  
-	    XMLHttpReq.onreadystatechange = processResponse1;//指定响应函数  
-	    XMLHttpReq.send(null);
+		if(<%=cert_num%>==null){
+			makelayer1();
+		}else{
+			makelayer(flightID);
+		}
 	});
 });
-
+var layer;
+function makelayer(flightID){
+	window.location.href="generateTicket.jsp"+"?flight_ID="+flightID+" ";
+}
+function makelayer1(){
+	layui.use('layer', function(){
+		  var layer = layui.layer;
+			      layer.open({
+			        type: type
+			        ,offset: "auto" 
+			        ,content:content_html
+			        ,btn: ['确定','取消']
+			        ,btnAlign: 'c' 
+			        ,shade: 0 
+			        ,yes: function(){
+			          layer.closeAll();
+			          window.location.href="changeMyself.jsp";
+			        }
+			        ,btn2:function(){
+			        	layer.closeAll();
+			        }
+			      });
+		});
+}
+	  
+	  
 function createXMLHttpRequest() {  
     if(window.XMLHttpRequest) { //Mozilla 浏览器  
         XMLHttpReq = new XMLHttpRequest();  
@@ -139,15 +181,7 @@ function processResponse() {
         }  
     }  
 }  
-function processResponse1() {  
-    if (XMLHttpReq.readyState == 4) { // 判断对象状态  
-        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息  
-            document.getElementById("div1").innerHTML=XMLHttpReq.responseText;
-        } else { 
-            window.alert("您所请求的页面有异常。");  
-        }  
-    }  
-} 
+
 function search(){
 	$("#tab").empty();
 	 startcity=$("#sc").val();

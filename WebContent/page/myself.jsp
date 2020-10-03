@@ -49,6 +49,7 @@ ResultSet rs=null;
 			passenger.address="暂无";
 			passenger.state="暂无";
 			session.setAttribute("cert_num", "null");
+			session.setAttribute("cert_type", "null");
 			out.println("暂无乘客信息，请前去维护！");
 		}
 %>
