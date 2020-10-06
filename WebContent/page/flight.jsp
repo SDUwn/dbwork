@@ -95,7 +95,7 @@ System.out.println(cert_num);
     		<td><%=flight.end_time %></td>
     		<td><%=flight.company_name %></td>
     		<td><%=flight.C_price %></td>
-    		<td><input type="button" class="layui-btn" name="book" value="预定"></td>
+    		<td><input type="button" class="layui-btn layui-btn-xs" name="book" value="预定"></td>
     	</tr>
     	
     <%
@@ -107,13 +107,13 @@ System.out.println(cert_num);
 </div>
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
+	    
 var XMLHttpReq; 
 var startcity,endcity,startcity;
 var flightID;
 var content_html;
 var type;
 if(<%=cert_num%>==null){
-	//alert()
 	content_html='<div style="padding: 20px 100px;">请先去完善乘客信息！</div>';
 	type=1;
 }else{

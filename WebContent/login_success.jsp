@@ -52,7 +52,7 @@
 					<div class="navBar layui-side-scroll" id="navBar">
 						<ul class="layui-nav layui-nav-tree">
 							<li class="layui-nav-item layui-this">
-								<a href="javascript:;" data-url="main.jsp?UserName=<%=UserName%>">
+								<a href="javascript:;" data-url="main.jsp">
 									<i class="layui-icon" data-icon=""></i>
 									<cite>首页</cite>
 								</a>
@@ -66,7 +66,7 @@
 						<div class="main_hd with_extra">
 							<h2>首页</h2>
 						</div>
-						<iframe src="main.jsp?UserName=<%=UserName%>" frameborder="0" scrolling="no" id="iframe"></iframe>
+						<iframe src="main.jsp" frameborder="0" scrolling="no" id="iframe"></iframe>
 					</div>
 				</div>
 			</div>

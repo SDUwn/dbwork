@@ -21,21 +21,21 @@ Dbutil util=new Dbutil();
 String SQL="";
 ResultSet rs=null;
 %>
-<table class="layui-table" lay-size="sm">
+<table class="layui-table" lay-size='sm' lay-filter="parse-table-demo" lay-data="{id: 'idTest'}">
   <thead>
     <tr>
-    	<th>订单编号</th>
-      	<th>航班号</th>
-       	<th>乘客姓名</th>
-       	<th>机舱号</th>
-        <th>座位号</th>
-        <th>机票价格</th>
-        <th>出发时间</th>
-        <th>出发城市</th>
-        <th>出发机场</th>
-        <th>到达时间</th>
-        <th>到达城市</th>
-        <th>到达机场</th>
+    	<th lay-data="{field:'1', width:100,fixed:'left'}">订单编号</th>
+      	<th lay-data="{field:'2', width:100,fixed:'left'}">航班号</th>
+       	<th lay-data="{field:'3', width:100,fixed:'left'}">乘客姓名</th>
+       	<th lay-data="{field:'4', width:100}">机舱号</th>
+        <th lay-data="{field:'5', width:100}">座位号</th>
+        <th lay-data="{field:'6', width:100}">机票价格</th>
+        <th lay-data="{field:'7', width:100}">出发时间</th>
+        <th lay-data="{field:'8', width:100}">出发城市</th>
+        <th lay-data="{field:'9', width:100}">出发机场</th>
+        <th lay-data="{field:'10', width:100}">到达时间</th>
+        <th lay-data="{field:'11', width:100}">到达城市</th>
+        <th lay-data="{field:'12', width:100}">到达机场</th>
     </tr> 
   </thead>
   <tbody>
@@ -85,7 +85,16 @@ util.close();
 %>
 </tbody>
 </table>
-
+<script src="../layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+layui.use('table', function(){
+	  var table = layui.table;
+	      table.init('parse-table-demo', { //转化静态表格
+	        //height: 'full-500'
+			page:true
+	      });
+	    });
+</script>
 </body>
 </html>
 

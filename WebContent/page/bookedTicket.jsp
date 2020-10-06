@@ -21,7 +21,7 @@ Dbutil util=new Dbutil();
 String SQL="";
 ResultSet rs=null;
 %>
-<table class="layui-table" lay-size="sm" id="booked_tickets">
+<table class="layui-table" lay-size='sm' id="booked_tickets" >
   <thead>
     <tr>
     	<th>订单编号</th>
@@ -88,11 +88,11 @@ util.close();
 </table>
 
 </body>
+<script src="../layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#booked_tickets").on("click", ":button", function(event) {
-		//$("#text").val($(this).closest("tr").find("td").eq(0).text());
 		ticket_ID=$(this).closest("tr").find("td").eq(0).text();
 		createXMLHttpRequest();
 		var url = "doReturn.jsp?ticket_ID='"+ticket_ID+"'";  

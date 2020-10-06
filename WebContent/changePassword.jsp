@@ -17,19 +17,19 @@
 			<div class='layui-form-item'>
 				<label class='layui-form-label'>原密码</label>
 				<div class='layui-input-inline'>
-					<input name='pwd_before' class='layui-input' type='password'>
+					<input name='pwd_before' class='layui-input' type='password' required="required">
 				</div>
 			</div>
 			<div class='layui-form-item'>
 				<label class='layui-form-label'>现密码</label>
 				<div class='layui-input-inline'>
-					<input name='pwd_now' class='layui-input' type='password'>
+					<input name='pwd_now' class='layui-input' type='password' required="required">
 				</div>
 			</div>
 			<div class='layui-form-item'>
 				<label class='layui-form-label'>确认密码</label>
 				<div class='layui-input-inline'>
-					<input name='pwd_ensure' class='layui-input' type='password'>
+					<input name='pwd_ensure' class='layui-input' type='password' required="required">
 				</div>
 			</div>
 			<div class="layui-form-item">
