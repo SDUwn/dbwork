@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>收入分析统计</title>
 </head>
 <body>
-管理员界面--收入统计
+
 </body>
 </html>

@@ -31,7 +31,7 @@ ResultSet rs=null;
      <div class="layui-input-inline">
       <select name="passenger">
         <%
-        SQL="select passenger_name,cernum from passenger where user_ID='"+user_ID+"'";
+        SQL="select passenger_name,cernum from passenger where user_ID='"+user_ID+"' and state='normal' ";
         rs=util.query(SQL);
         Passenger pass=new Passenger();
         while(rs.next()){

@@ -28,7 +28,7 @@
 					"spread": false
 				},
 				{
-					"title": "过期机票",
+					"title": "失效机票",
 					"icon": "",
 					"href": "page/timeoutTicket.jsp",
 					"spread": false

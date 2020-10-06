@@ -94,6 +94,13 @@ while(rs.next()){
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript">
 
+var passenger_ID;
+function findPassenger(){
+	$("#form1").empty();
+	passenger_ID=$("#passengerID").val();
+	window.location.href="findPassenger.jsp?passenger_ID="+passenger_ID+" ";
+}
+
 layui.use('form', function(){
 	  var form = layui.form
 	  ,layer = layui.layer
@@ -101,29 +108,14 @@ layui.use('form', function(){
 	  ,laydate = layui.laydate;
 
 	  form.on('switch(switchTest)', function(data){
-	    alert($(this).closest("tr").text());
+	    passenger_ID=$(this).closest("tr").find("td").eq(4).text();
+	    state=$(this).closest("tr").find("td").eq(9).text();
+	    createXMLHttpRequest();  
+	    var url = "doChangeState.jsp?passenger_ID="+passenger_ID+"&state="+state+" ";  
+	    XMLHttpReq.open("GET", url, true);  
+	    XMLHttpReq.send(null);
 	  });
 });
-
-var flight_ID;
-function findPassenger(){
-	$("#form1").empty();
-	 passenger_ID=$("#passengerID").val();
-	 createXMLHttpRequest();  
-	    var url = "findPassenger.jsp?passenger_ID="+passenger_ID+"";  
-	    XMLHttpReq.open("GET", url, true);  
-	    XMLHttpReq.onreadystatechange = processResponse;//指定响应函数  
-	    XMLHttpReq.send(null);
-}
-function processResponse() {  
-    if (XMLHttpReq.readyState == 4) { // 判断对象状态  
-        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息  
-        	document.getElementById("div1").innerHTML=XMLHttpReq.responseText;
-        } else { 
-            window.alert("您所请求的页面有异常。");  
-        }  
-    }  
-}
 function createXMLHttpRequest() {  
     if(window.XMLHttpRequest) { //Mozilla 浏览器  
         XMLHttpReq = new XMLHttpRequest();  
