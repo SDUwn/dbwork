@@ -99,9 +99,28 @@ layui.use('form', function(){
 	  ,laydate = layui.laydate;
 
 	  form.on('switch(switchTest)', function(data){
-	    alert($(this).closest("tr").text());
-	  });
-});
+		  passenger_ID=$(this).closest("tr").find("td").eq(4).text();
+		    state=$(this).closest("tr").find("td").eq(9).text();
+		    createXMLHttpRequest();  
+		    var url = "doChangeState.jsp?passenger_ID="+passenger_ID+"&state="+state+" ";  
+		    XMLHttpReq.open("GET", url, true);  
+		    XMLHttpReq.send(null);
+		  });
+	});
+	function createXMLHttpRequest() {  
+	    if(window.XMLHttpRequest) { //Mozilla 浏览器  
+	        XMLHttpReq = new XMLHttpRequest();  
+	    }  
+	    else if (window.ActiveXObject) { // IE浏览器  
+	        try {  
+	            XMLHttpReq = new ActiveXObject("Msxml2.XMLHTTP");  
+	        } catch (e) {  
+	            try {  
+	                XMLHttpReq = new ActiveXObject("Microsoft.XMLHTTP");  
+	            } catch (e) {}  
+	        }  
+	    }  
+	} 
 
 var flight_ID;
 function findPassenger(){
