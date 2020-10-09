@@ -21,6 +21,12 @@
 			"href": "page_admin/feedback.jsp",
 			"spread": false,
 			"children": []
+		},{
+			"title": "通知管理",
+			"icon": "&#xe642;",
+			"href": "page_admin/manageNews.jsp",
+			"spread": false,
+			"children": []
 		},
 		{
 			"title": "疫情追踪",

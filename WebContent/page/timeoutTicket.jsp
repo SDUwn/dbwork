@@ -127,6 +127,49 @@ while(rs.next()){
 }
 %>
 <%
+SQL="";
+SQL+=" select ticket_ID,ticket.flight_ID,ticket.passenger_ID,passenger_name,price, ";
+SQL+=" start_time,end_time,aa.airport_name as start_airport,bb.airport_name as end_airport,aa.city as start_city,bb.city as end_city,cabin_type,seat_location ";
+SQL+=" from ticket,passenger,flight,airport as aa,airport as bb,plane_seat ";
+SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='used' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
+SQL+=" and flight.start_ID=aa.airport_ID and flight.end_ID=bb.airport_ID ";
+SQL+=" and flight.plane_ID=plane_seat.plane_ID and ticket.seat_ID=plane_seat.seat_ID ";
+rs=util.query(SQL);
+while(rs.next()){
+	Ticket ticket=new Ticket();
+	ticket.ticket_id=rs.getInt("ticket_ID");
+	ticket.flight_id=rs.getInt("flight_ID");
+	ticket.passenger_name=rs.getString("passenger_name");
+	ticket.cabin_type=rs.getString("cabin_type");
+	ticket.seat_location=rs.getString("seat_location");
+	ticket.price=rs.getDouble("price");
+	ticket.start_time=rs.getString("start_time");
+	ticket.start_city=rs.getString("start_city");
+	ticket.start_airport=rs.getString("start_airport");
+	ticket.end_time=rs.getString("end_time");
+	ticket.end_city=rs.getString("end_city");
+	ticket.end_airport=rs.getString("end_airport");
+%>
+		<tr>
+		   	<td><%=ticket.ticket_id %></td>
+    		<td><%=ticket.flight_id %></td>
+    		<td><%=ticket.passenger_name %></td>
+    		<td><%=ticket.cabin_type %></td>
+    		<td><%=ticket.seat_location %></td>
+    		<td><%=ticket.price %></td>
+    		<td><%=ticket.start_time %></td>
+    		<td><%=ticket.start_city %></td>
+    		<td><%=ticket.start_airport %></td>
+    		<td><%=ticket.end_time %></td>
+    		<td><%=ticket.end_city %></td>
+    	    <td><%=ticket.end_airport %></td>
+    	    <td>已使用</td>
+    	</tr>
+
+<%
+}
+%>
+<%
 util.close();
 %>
 </tbody>

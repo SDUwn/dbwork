@@ -15,10 +15,6 @@ img{background:#fff;border-color:#aaa #ccc #ddd #bbb;border-style:solid;border-w
 </head>
 <body>
 
-<blockquote class="layui-elem-quote">
-  <a href="page_admin/manageNews.jsp">管理新闻</a>
-</blockquote>
-
 <div class="layui-carousel" id="test1" lay-filter="test1">
   <div carousel-item="">
     <div><img src="D:\OneDrive\大数据 大三\数据库课设\plane1.png" alt="description"/></div>

@@ -21,16 +21,22 @@
     	<input id="passengerID" type="text" name="passengerID" class="layui-input" placeholder="请输入确诊乘客证件号" >
     </div>
     <div class="layui-input-inline">
-		<input type="button" class="layui-btn" value="查找乘客乘车动态" onclick="findVictim()">
+    	<input id="time" type="date" name="time" class="layui-input" placeholder="请输入查找日期" >
+    </div>
+    <div class="layui-input-inline">
+		<input type="button" class="layui-btn" value="查找乘客乘车动态" onclick="FindVictim();">
     </div>
 </div>
 <div id="div1"></div>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 var passenger_ID;
-function findVictim(){
+var time;
+function FindVictim(){
 	passenger_ID=$("#passengerID").val();
+	time=$("#time").val();
 	createXMLHttpRequest();  
-    var url = "doFindVictim.jsp?passenger_ID="+passenger_ID+" ";  
+    var url = "findVictim.jsp?passenger_ID="+passenger_ID+"&time="+time+" ";  
     XMLHttpReq.open("GET", url, true);
     XMLHttpReq.onreadystatechange = processResponse;
     XMLHttpReq.send(null);

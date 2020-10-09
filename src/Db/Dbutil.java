@@ -1,7 +1,5 @@
 package Db;
 import java.sql.*;
-
-import com.mysql.cj.protocol.Resultset;
 public class Dbutil {
 	Connection conn;
 	Statement stmt;

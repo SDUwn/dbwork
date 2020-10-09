@@ -13,6 +13,7 @@ String cert_num=request.getParameter("passenger");
 String seat=null;
 String seat_ID=null;
 String price=null;
+float baby_rate,child_rate,student_rate;
 try{
 	seat=request.getParameter("seat_type");
 	String[] seat_info = seat.split(",");

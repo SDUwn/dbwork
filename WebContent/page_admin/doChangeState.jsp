@@ -5,13 +5,14 @@
 <%
 String passenger_ID=request.getParameter("passenger_ID");
 String state=request.getParameter("state");
+System.out.println(passenger_ID+state);
 Dbutil util =new Dbutil();
 ResultSet rs=null;
 String SQL="";
 if(state.equals("禁用")){
 SQL="update passenger set state='limited' where cernum='"+passenger_ID+"' ";
 util.update(SQL);
-SQL="update ticket set ticket_state='limited' where ticket_state='normal' and passenger_ID='"+passenger_ID+"' ";
+SQL="update ticket set ticket_state='limited' where ticket_state='booked' and passenger_ID='"+passenger_ID+"' ";
 util.update(SQL);
 SQL="update flight_seat "; 
 SQL+=" set seat_state='normal' ";

@@ -67,7 +67,7 @@ Dbutil util=new Dbutil();
   <div class="layui-form-item">
     <label class="layui-form-label">出发时间</label>
     <div class="layui-input-inline">
-      <input id="st" name="starttime" class="layui-input" type="datetime" placeholder="yyyy-mm-dd hh:mm:ss" required="required">
+      <input id="st" name="starttime" class="layui-input" type="text" required="required">
     </div>
   </div>
   <div class="layui-form-item">
@@ -91,7 +91,7 @@ Dbutil util=new Dbutil();
   <div class="layui-form-item">
     <label class="layui-form-label">到达时间</label>
     <div class="layui-input-inline">
-      <input id="et" name="endtime" class="layui-input" type="datetime" placeholder="yyyy-mm-dd hh:mm:ss" required="required">
+      <input id="et" name="endtime" class="layui-input" type="text" required="required">
     </div>
   </div>
 	<div class="layui-form-item">
@@ -126,6 +126,14 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   ,layer = layui.layer
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
+  laydate.render({
+	    elem: '#st' //指定元素
+	    ,type:'datetime'
+	  });
+  laydate.render({
+	    elem: '#et' //指定元素
+	    ,type:'datetime'
+	  });
 });
 </script>
 </body>

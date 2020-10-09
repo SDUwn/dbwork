@@ -17,7 +17,7 @@ Dbutil util=new Dbutil();
 ResultSet rs=null;
 SQL=" select date(booktime),sum(price) ";
 SQL+=" from ticket ";
-SQL+=" where ticket_state='normal' ";
+SQL+=" where ticket_state='used' or ticket_state='booked' ";
 SQL+=" group by date(booktime) ";
 rs=util.query(SQL);
 //rs.last();// 移动到最后

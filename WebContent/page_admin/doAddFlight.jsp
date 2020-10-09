@@ -23,7 +23,7 @@ String A_price=request.getParameter("A_price"),B_price=request.getParameter("B_p
 String SQL="";
 Dbutil util=new Dbutil();
 ResultSet rs=null;
-SQL="insert into flight values('"+flight_ID+"','"+plane_ID+"','"+start_ID+"','"+start_time+"','"+end_ID+"','"+end_time+"','normal','"+A_price+"','"+B_price+"','"+C_price+"') ";
+SQL="insert into flight(flight_ID,plane_ID,start_ID,start_time,end_ID,end_time,flight_state,A_price,B_price,C_price) values('"+flight_ID+"','"+plane_ID+"','"+start_ID+"','"+start_time+"','"+end_ID+"','"+end_time+"','normal','"+A_price+"','"+B_price+"','"+C_price+"') ";
 util.update(SQL);
 rs=util.query("select seat_ID from plane_seat where plane_ID='"+plane_ID+"' ");
 while(rs.next()){
