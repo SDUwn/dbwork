@@ -21,7 +21,7 @@ if(rs.next()){
 	%>
 	<script type="text/javascript">
 	alert("无法删除！乘客已订票！");
-	window.location.href="ticket_admin.jsp"
+	window.location.href="../ticket_admin.jsp"
 	</script>
 	
 	<%
@@ -31,6 +31,6 @@ SQL="delete from flight where flight_ID='"+flight_ID+"' ";
 util.update(SQL);
 util.close();
 %>
-<script type="text/javascript">window.location.href="ticket_admin.jsp"</script>
+<script type="text/javascript">window.location.href="../ticket_admin.jsp"</script>
 </body>
 </html>

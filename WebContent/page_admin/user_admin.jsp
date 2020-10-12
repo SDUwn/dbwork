@@ -15,7 +15,6 @@
   <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
-<br>
 <div class="layui-form-item">
     <div class="layui-input-inline">
     	<input id="passengerID" type="text" name="passengerID" class="layui-input" placeholder="请输入乘客证件号" >
@@ -71,7 +70,7 @@ while(rs.next()){
     		<td><%=pass.address %></td>    		
     		<td><%=pass.user_ID %></td>
     		<%
-    		if(pass.state.equals("normal")){
+    		if(pass.state.equals("正常")){
     		%>  		
     <td><input name="state" type="checkbox" checked="" lay-skin="switch" lay-filter="switchTest" lay-text="正常|禁用" ></td>
     		<%

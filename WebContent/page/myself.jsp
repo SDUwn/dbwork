@@ -24,7 +24,7 @@ ResultSet rs=null;
 		Passenger passenger=new Passenger();
 		//int ID=Integer.parseInt(request.getSession().getAttribute("ID").toString());
 		int ID=Integer.parseInt(session.getAttribute("ID").toString());
-		SQL="select * from passenger where user_ID='"+ID+"'";
+		SQL="select * from passenger where user_ID='"+ID+"' and is_main='Y' ";
 		rs=util.query(SQL);
 		if(rs.next()){
 			passenger.pass_name=rs.getString("Passenger_name");

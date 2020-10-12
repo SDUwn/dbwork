@@ -10,6 +10,7 @@ boolean flag=false;
 String user_ID=session.getAttribute("ID").toString();
 String flight_ID=request.getParameter("flight");
 String cert_num=request.getParameter("passenger");
+String ticket_ID=request.getParameter("ticket_ID");
 String seat=null;
 String seat_ID=null;
 String price=null;
@@ -42,12 +43,20 @@ SQL=" update flight_seat ";
 SQL+=" set seat_state='已占' ";
 SQL+=" where flight_ID='"+flight_ID+"' and seat_ID='"+seat_ID+"' ";
 util.update(SQL);
+SQL=" update ticket ";
+SQL+=" set ticket_state='已退',returntime=NOW() ";
+SQL+=" where ticket_ID="+ticket_ID+" ";
+util.update(SQL);
+SQL="update flight_seat "; 
+SQL+=" set seat_state='正常' ";
+SQL+=" where (flight_ID,seat_ID) in (select flight_ID,seat_ID from ticket where ticket.ticket_ID="+ticket_ID+") ";
+util.update(SQL);
 util.close();
 flag=true;
 if(flag){
 %>
 <script type="text/javascript">
-alert("订票成功！");
+alert("改签成功！");
 window.location.href="bookedTicket.jsp";
 </script>
 <%

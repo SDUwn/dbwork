@@ -41,7 +41,7 @@ ResultSet rs=null;
 Dbutil util =new Dbutil();
 SQL="select distinct passenger_name,sex,age,certype,cernum,mail,phone,address,state,passenger.user_ID as userID ";
 SQL+=" from ticket,passenger ";
-SQL+=" where flight_ID='"+flight_ID+"' and ticket_state='used' and passenger_ID=cernum and ticket.user_ID=passenger.user_ID ";
+SQL+=" where flight_ID='"+flight_ID+"' and ticket_state='已用' and passenger_ID=cernum and ticket.user_ID=passenger.user_ID ";
 rs=util.query(SQL);
 while(rs.next()){
 	Passenger pass=new Passenger();
@@ -67,7 +67,7 @@ while(rs.next()){
     		<td><%=pass.address %></td>    		
     		<td><%=pass.user_ID %></td>
     		<%
-    		if(pass.state.equals("normal")){
+    		if(pass.state.equals("正常")){
     		%>  		
     <td><input name="state" type="checkbox" checked="" lay-skin="switch" lay-filter="switchTest" lay-text="正常|禁用" ></td>
     		<%

@@ -10,6 +10,8 @@
 </head>
 <body>
 <%
+response.setContentType("text/html;charset=utf-8");  
+request.setCharacterEncoding("utf-8");
 String comment=request.getParameter("comment");
 String score=request.getParameter("score");
 String user_ID=session.getAttribute("ID").toString();

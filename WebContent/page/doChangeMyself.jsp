@@ -13,6 +13,8 @@
 
 </body>
 <%
+response.setContentType("text/html;charset=utf-8");  
+request.setCharacterEncoding("utf-8");
 String pass_name=request.getParameter("pass_name");
 String sex=request.getParameter("sex");
 int age=Integer.parseInt(request.getParameter("age").toString());
@@ -41,7 +43,7 @@ rs=util.query(SQL);
 		SQL="update passenger set passenger_name='"+pass_name+"',sex='"+sex+"', age='"+age+"', mail='"+mail+"', phone='"+telephone+"', address='"+address+"' where cernum='"+cert_num+"'";
 		util.update(SQL); 
 	}else{
-		SQL="insert into passenger(passenger_name,sex,age,certype,cernum,mail,phone,state,address,user_ID)values('"+pass_name+"','"+sex+"','"+age+"','"+cert_type+"','"+cert_num+"','"+mail+"','"+telephone+"','normal','"+address+"','"+user_ID+"')";
+		SQL="insert into passenger(passenger_name,sex,age,certype,cernum,mail,phone,state,address,is_main,user_ID)values('"+pass_name+"','"+sex+"','"+age+"','"+cert_type+"','"+cert_num+"','"+mail+"','"+telephone+"','正常','"+address+"','Y','"+user_ID+"')";
 		util.update(SQL);  
 	}
 %>

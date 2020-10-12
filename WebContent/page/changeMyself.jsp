@@ -13,6 +13,8 @@
   <style type="text/css">body{margin: 2em 0.5em 0.5em 1em;}</style>
 </head>
 <%
+response.setContentType("text/html;charset=utf-8");  
+request.setCharacterEncoding("utf-8");
 String cert_num=session.getAttribute("cert_num").toString();
 String cert_type=session.getAttribute("cert_type").toString();
 %>

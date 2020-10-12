@@ -7,6 +7,7 @@
   <thead>
     <tr>
       	<th >航班号</th>
+      	<th >飞行时间</th>
        	<th >飞机编号</th>
        	<th >出发地</th>
         <th >出发时间</th>
@@ -43,7 +44,8 @@ while(rs.next()){
 	flight.C_price=rs.getDouble("C_price");
 	%>
 	<tr>
-    		<td><%=flight.flight_id %></td>    		
+    		<td><%=flight.flight_id %></td> 
+    		<td><%=flight.getTime(flight.start_time,flight.end_time) %></td>   		
     		<td><%=flight.plane_id %></td>
     		<td><%=flight.start_id %></td>
     		<td><%=flight.start_time %></td>

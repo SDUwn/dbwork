@@ -71,7 +71,7 @@ if(rs.next()){
     		<td><%=pass.address %></td>    		
     		<td><%=pass.user_ID %></td>
     		<%
-    		if(pass.state.equals("normal")){
+    		if(pass.state.equals("正常")){
     		%>  		
     <td><input name="state" type="checkbox" checked="" lay-skin="switch" lay-filter="switchTest" lay-text="正常|禁用" ></td>
     		<%

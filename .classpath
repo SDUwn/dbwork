@@ -21,5 +21,6 @@
 	<classpathentry kind="lib" path="commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="commons-beanutils-1.8.0.jar"/>
+	<classpathentry kind="lib" path="json-taglib-0.4.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

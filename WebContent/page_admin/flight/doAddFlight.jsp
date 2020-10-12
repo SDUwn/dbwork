@@ -19,19 +19,23 @@ String end_ID=request.getParameter("end");
 String start_time=request.getParameter("starttime");
 String end_time=request.getParameter("endtime");
 String A_price=request.getParameter("A_price"),B_price=request.getParameter("B_price"),C_price=request.getParameter("C_price");
-System.out.println(flight_ID+"|"+plane_ID+"|"+start_ID+"|"+end_ID+"|"+start_time+"|"+end_time+"|"+A_price);
+//System.out.println(flight_ID+"|"+plane_ID+"|"+start_ID+"|"+end_ID+"|"+start_time+"|"+end_time+"|"+A_price);
 String SQL="";
 Dbutil util=new Dbutil();
 ResultSet rs=null;
-SQL="update flight set plane_ID='"+plane_ID+"',start_ID='"+start_ID+"',start_time='"+start_time+"',end_ID='"+end_ID+"',end_time='"+end_time+"',A_price='"+A_price+"',B_price='"+B_price+"',C_price='"+C_price+"' where flight_ID='"+flight_ID+"' ";
+SQL="insert into flight(flight_ID,plane_ID,start_ID,start_time,end_ID,end_time,flight_state,A_price,B_price,C_price) values('"+flight_ID+"','"+plane_ID+"','"+start_ID+"','"+start_time+"','"+end_ID+"','"+end_time+"','正常','"+A_price+"','"+B_price+"','"+C_price+"') ";
 util.update(SQL);
+rs=util.query("select seat_ID from plane_seat where plane_ID='"+plane_ID+"' ");
+while(rs.next()){
+	util.update("insert into flight_seat values('"+flight_ID+"','"+rs.getInt("seat_ID")+"','正常')");
+}
 util.close();
 flag=true;
 %>
 <script type="text/javascript">
 if(<%=flag %>==true){
-	alert("修改成功！");
-	window.location.href="ticket_admin.jsp";
+	alert("添加成功！");
+	window.location.href="../ticket_admin.jsp";
 }
 </script>
 </body>

@@ -13,7 +13,7 @@
 <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../../layui/css/layui.css"  media="all">
 </head>
 <%
 String flight_ID=request.getParameter("flight_ID");
@@ -45,6 +45,12 @@ while(rs.next()){
     <label class="layui-form-label">航班号</label>
     <div class="layui-input-inline">
       <input name="flight_ID" class="layui-input" type="text" placeholder="<%=flight_ID %>" disabled="disabled">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">飞行时间</label>
+    <div class="layui-input-inline">
+      <input name="time" class="layui-input" type="text" placeholder="<%=flight.getTime(flight.start_time, flight.end_time) %>" disabled="disabled">
     </div>
   </div>
    <div class="layui-form-item">
@@ -107,7 +113,7 @@ while(rs.next()){
 	    </div>
 	  </div>
 </body>
-<script src="../layui/layui.js" charset="UTF-8"></script>
+<script src="../../layui/layui.js" charset="UTF-8"></script>
 <script>
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form

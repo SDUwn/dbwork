@@ -13,7 +13,7 @@
 <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../../layui/css/layui.css"  media="all">
 </head>
 <%
 String flight_ID=request.getParameter("flight_ID");
@@ -34,7 +34,7 @@ String SQL="";
      <div class="layui-input-inline">
       <select name="plane_ID">
         <%
-        SQL="select plane.plane_ID,plane_type,company_name from plane,company where plane.company_ID=company.company_ID and state='normal' ";
+        SQL="select plane.plane_ID,plane_type,company_name from plane,company where plane.company_ID=company.company_ID and state='正常' ";
         rs=util.query(SQL);
         Plane plane=new Plane();
         while(rs.next()){
@@ -68,7 +68,7 @@ String SQL="";
   <div class="layui-form-item">
     <label class="layui-form-label">出发时间</label>
     <div class="layui-input-inline">
-      <input id="st" name="starttime" class="layui-input" type="datetime" placeholder="yyyy-mm-dd hh:mm:ss" required="required">
+      <input id="st" name="starttime" class="layui-input" type="text" required="required">
     </div>
   </div>
   <div class="layui-form-item">
@@ -92,7 +92,7 @@ String SQL="";
   <div class="layui-form-item">
     <label class="layui-form-label">到达时间</label>
     <div class="layui-input-inline">
-      <input id="et" name="endtime" class="layui-input" type="datetime" placeholder="yyyy-mm-dd hh:mm:ss" required="required">
+      <input id="et" name="endtime" class="layui-input" type="text" required="required">
     </div>
   </div>
 	<div class="layui-form-item">
@@ -121,13 +121,22 @@ String SQL="";
 	  </div>
 </form>
 </body>
-<script src="../layui/layui.js" charset="UTF-8"></script>
+<script src="../../layui/layui.js" charset="UTF-8"></script>
 <script>
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form
   ,layer = layui.layer
   ,layedit = layui.layedit
   ,laydate = layui.laydate;
+  laydate.render({
+	    elem: '#st' //指定元素
+	    ,type:'datetime'
+	  });
+laydate.render({
+	    elem: '#et' //指定元素
+	    ,type:'datetime'
+	  });
 });
+
 </script>
 </html>

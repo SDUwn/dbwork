@@ -23,7 +23,7 @@ ResultSet rs=null;
 String SQL="";
 SQL="select ticket.flight_ID as flightID,start_ID,end_ID,start_time,end_time,aa.airport_name as start_airport,aa.city as start_city,bb.airport_name as end_airport,bb.city as end_city ";
 SQL+=" from ticket,flight,airport as aa,airport as bb ";
-SQL+=" where passenger_ID='"+passenger_ID+"' and ticket_state='used' ";
+SQL+=" where passenger_ID='"+passenger_ID+"' and ticket_state='已用' ";
 SQL+=" and ticket.flight_ID=flight.flight_ID and date(start_time)='"+time+"' ";
 SQL+=" and flight.start_ID=aa.airport_ID and flight.end_ID=bb.airport_ID ";
 rs=util.query(SQL);

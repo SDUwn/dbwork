@@ -12,7 +12,7 @@
 <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+  <link rel="stylesheet" href="../../layui/css/layui.css"  media="all">
 </head>
 <%
 String SQL="";
@@ -33,7 +33,7 @@ Dbutil util=new Dbutil();
      <div class="layui-input-inline">
       <select name="plane_ID">
         <%
-        SQL="select plane.plane_ID,plane_type,company_name from plane,company where plane.company_ID=company.company_ID and state='normal' ";
+        SQL="select plane.plane_ID,plane_type,company_name from plane,company where plane.company_ID=company.company_ID and state='正常' ";
         rs=util.query(SQL);
         Plane plane=new Plane();
         while(rs.next()){
@@ -119,7 +119,7 @@ Dbutil util=new Dbutil();
 	    </div>
 	  </div>
 </form>
-<script src="../layui/layui.js" charset="UTF-8"></script>
+<script src="../../layui/layui.js" charset="UTF-8"></script>
 <script>
 layui.use(['form', 'layedit', 'laydate'], function(){
   var form = layui.form

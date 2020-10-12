@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="Bean.Passenger" %>
-<%@ page import="Bean.Seat" %>
 <%@ page import="Db.Dbutil" %>
+<%@ page import="Bean.Seat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,33 +15,21 @@
 </head>
 <body>
 <%
-response.setContentType("text/html;charset=utf-8");  
-request.setCharacterEncoding("utf-8");
+String ticket_ID=request.getParameter("ticket_ID");
 String flight_ID=request.getParameter("flight_ID");
-String cert_num=session.getAttribute("cert_num").toString();
-String user_ID=session.getAttribute("ID").toString();
 Dbutil util=new Dbutil();
-String SQL="";
 ResultSet rs=null;
+String cert_num=null;
+String SQL="select passenger_ID from ticket where ticket_ID='"+ticket_ID+"' ";
+rs=util.query(SQL);
+if(rs.next()){cert_num=rs.getString("passenger_ID");}
 %>
-<form class="layui-form" action="doBook.jsp" method="post">
+<form class="layui-form" action="doChange1.jsp?ticket_ID=<%=ticket_ID %>" method="post">
 	<div class="layui-form-item">
-	 <label class="layui-form-label">选择乘客</label>
-	 <button class="layui-btn layui-btn-primary" type="button" onclick="addPass();">添加乘客</button>
+	 <label class="layui-form-label">乘客证件号</label>
      <div class="layui-input-inline">
-      <select name="passenger">
-        <%
-        SQL="select passenger_name,cernum from passenger where user_ID='"+user_ID+"' and state='正常' ";
-        rs=util.query(SQL);
-        Passenger pass=new Passenger();
-        while(rs.next()){
-        	pass.pass_name=rs.getString("passenger_name");
-        	pass.cert_num=rs.getString("cernum");
-        %>
-        <option value="<%=pass.cert_num %>"><%=pass.pass_name %></option>
-        <%} %>
-      </select>
-    </div>
+        <input name=passenger class="layui-input" type="text"  value="<%=cert_num %>" readonly="readonly">
+     </div>
   	</div>
   	<div class="layui-form-item">
     <label class="layui-form-label">航班号</label>
@@ -72,9 +58,9 @@ ResultSet rs=null;
         	else if(seat.seat_type.equals("B"))seat.price=rs.getDouble("B_price");
         	else seat.price=rs.getDouble("C_price");
         %>
-      <li><input name="seat_type" title="类型：<%=seat.seat_type %>&nbsp&nbsp&nbsp位置：<%=seat.seat_location %>&nbsp&nbsp&nbsp 价格:<%=seat.price %>" type="radio"  value="<%=seat.seat_ID %>,<%=seat.price %>"></li>
-    <%}
-       util.close();
+		<li><input type="radio"  name="seat_type" title="类型：<%=seat.seat_type %>&nbsp&nbsp&nbsp位置：<%=seat.seat_location %>&nbsp&nbsp&nbsp 价格:<%=seat.price %>" value="<%=seat.seat_ID %>,<%=seat.price %>"></li>
+   	   <%}
+       		util.close();
        %>
        </ul>
     </div>
@@ -90,17 +76,9 @@ ResultSet rs=null;
 <script src="../layui/layui.js" charset="UTF-8"></script>
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script>
-layui.use(['form', 'layedit', 'laydate'], function(){
-  var form = layui.form
-  ,layer = layui.layer
-  ,layedit = layui.layedit
-  ,laydate = layui.laydate;
+layui.use('form', function(){
+  var form = layui.form;
+  form.render();
 });
-function addPass(){
-	window.location.href="add_passenger.jsp";
-}
 </script>
 </html>
-
-
-

@@ -14,7 +14,6 @@
   <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
 </head>
 <body>
-<br><br>
 <div class="layui-form-item">
     <div class="layui-input-inline">
     	<input id="flight_ID" type="text" name="flightID" class="layui-input" placeholder="请输入航班号" >
@@ -31,6 +30,7 @@
   <thead>
     <tr>
       	<th >航班号</th>
+      	<th >飞行时间</th>
        	<th >飞机编号</th>
        	<th >出发地</th>
         <th >出发时间</th>
@@ -49,7 +49,8 @@
 <%
 Dbutil util=new Dbutil();
 ResultSet rs=null;
-String SQL="select * from flight";
+String SQL="select * from flight ";
+//String SQL="SELECT flight_ID,plane_type,company_name,A_price,B_price,C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,end_time from flight,airport as a,airport as b,plane,company where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID ";
 rs=util.query(SQL);
 while(rs.next()){
 	Flight flight=new Flight();
@@ -65,7 +66,8 @@ while(rs.next()){
 	flight.C_price=rs.getDouble("C_price");
 	%>
 	<tr>
-    		<td><%=flight.flight_id %></td>    		
+    		<td><%=flight.flight_id %></td>    
+    		<td><%=flight.getTime(flight.start_time, flight.end_time) %></td>		
     		<td><%=flight.plane_id %></td>
     		<td><%=flight.start_id %></td>
     		<td><%=flight.start_time %></td>
@@ -94,14 +96,14 @@ $(function() {
 	$("#div1").on("click", ":button", function(event) {
 		if($(this).attr("name")=='edit'){
 			flightID=$(this).closest("tr").find("td").eq(0).text();
-			window.location.href="editFlight.jsp?flight_ID="+flightID+"";
+			window.location.href="flight/editFlight.jsp?flight_ID="+flightID+"";
 		}else if($(this).attr("name")=='delete'){
 			flightID=$(this).closest("tr").find("td").eq(0).text();
 			$(this).closest("tr").empty();
-			window.location.href("doDeleteFlight.jsp?flight_ID="+flightID+"");
+			window.location.href("flight/doDeleteFlight.jsp?flight_ID="+flightID+"");
 		}else{
 			flightID=$(this).closest("tr").find("td").eq(0).text();
-			window.location.href("viewFlight.jsp?flight_ID="+flightID+"");
+			window.location.href("flight/viewFlight.jsp?flight_ID="+flightID+"");
 		}
 	});
 });
@@ -110,7 +112,7 @@ function findFlight(){
 	$("#tab").empty();
 	 flight_ID=$("#flight_ID").val();
 	 createXMLHttpRequest();  
-	    var url = "search_admin.jsp?flight_ID="+flight_ID+"";  
+	    var url = "flight/search_admin.jsp?flight_ID="+flight_ID+"";  
 	    XMLHttpReq.open("GET", url, true);  
 	    XMLHttpReq.onreadystatechange = processResponse;//指定响应函数  
 	    XMLHttpReq.send(null);
@@ -139,7 +141,7 @@ function createXMLHttpRequest() {
     }  
 } 
 function addFlight(){
-	window.location.href="addFlight.jsp";
+	window.location.href="flight/addFlight.jsp";
 }
 </script>
 </body>

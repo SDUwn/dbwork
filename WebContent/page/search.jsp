@@ -18,6 +18,7 @@
   <thead>
     <tr>
       	<th>航班号</th>
+      	<th>飞行时间</th>
        	<th>出发城市</th>
        	<th>出发机场</th>
         <th>出发时间</th>
@@ -35,10 +36,12 @@
 SQL="SELECT flight_ID,plane_type,company_name,A_price,B_price,C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,end_time ";
 SQL+="from flight,airport as a,airport as b,plane,company ";
 if(starttime.equals("")){
-    SQL+="where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='normal' and plane.company_ID=company.company_ID and a.city='"+startcity+"' and b.city='"+endcity+"'";
+    SQL+="where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID and a.city='"+startcity+"' and b.city='"+endcity+"'";
+	System.out.println(SQL);
 }else{
-   	SQL+="where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='normal' and plane.company_ID=company.company_ID and a.city='"+startcity+"' and b.city='"+endcity+"'and date(start_time)>='"+starttime+"'";
-	}
+   	SQL+="where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID and a.city='"+startcity+"' and b.city='"+endcity+"'and date(start_time)>='"+starttime+"'";
+	System.out.println(SQL);
+}
 	Dbutil util=new Dbutil();
 	ResultSet rs1=util.query(SQL);
 	//if(rs1.isBeforeFirst()){
@@ -59,6 +62,7 @@ if(starttime.equals("")){
 %>
 		<tr>
     		<td><%=flight.flight_id %></td>
+    		<td><%=flight.getTime(flight.start_time,flight.end_time) %></td>
     		<td><%=flight.start_city %></td>
     		<td><%=flight.start_airport %></td>
     		<td><%=flight.start_time %></td>

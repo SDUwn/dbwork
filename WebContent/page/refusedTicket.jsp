@@ -3,6 +3,7 @@
 <%@ page import="Db.Dbutil" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="Bean.Ticket" %>
+<%@ page import="Bean.Flight" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,7 @@ ResultSet rs=null;
     	<th lay-data="{field:'1', width:100,fixed:'left'}">订单编号</th>
       	<th lay-data="{field:'2', width:100,fixed:'left'}">航班号</th>
        	<th lay-data="{field:'3', width:100,fixed:'left'}">乘客姓名</th>
+       	<th lay-data="{field:'13', width:100}">飞行时间</th>
        	<th lay-data="{field:'4', width:100}">机舱号</th>
         <th lay-data="{field:'5', width:100}">座位号</th>
         <th lay-data="{field:'6', width:100}">机票价格</th>
@@ -44,7 +46,7 @@ SQL="";
 SQL+=" select ticket_ID,ticket.flight_ID,ticket.passenger_ID,passenger_name,price, ";
 SQL+=" start_time,end_time,aa.airport_name as start_airport,bb.airport_name as end_airport,aa.city as start_city,bb.city as end_city,cabin_type,seat_location ";
 SQL+=" from ticket,passenger,flight,airport as aa,airport as bb,plane_seat ";
-SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='returned' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
+SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='已退' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
 SQL+=" and flight.start_ID=aa.airport_ID and flight.end_ID=bb.airport_ID ";
 SQL+=" and flight.plane_ID=plane_seat.plane_ID and ticket.seat_ID=plane_seat.seat_ID ";
 rs=util.query(SQL);
@@ -68,6 +70,7 @@ while(rs.next()){
 		   	<td><%=ticket.ticket_id %></td>
     		<td><%=ticket.flight_id %></td>
     		<td><%=ticket.passenger_name %></td>
+    		<td><%=new Flight().getTime(ticket.start_time,ticket.end_time) %></td>
     		<td><%=ticket.cabin_type %></td>
     		<td><%=ticket.seat_location %></td>
     		<td><%=ticket.price %></td>

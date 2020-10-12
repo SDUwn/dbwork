@@ -10,6 +10,8 @@
 </head>
 <body>
 <%
+response.setContentType("text/html;charset=utf-8");  
+request.setCharacterEncoding("utf-8");
 String user_name=request.getParameter("user_name");
 String password=request.getParameter("password");
 String telephone=request.getParameter("telephone");

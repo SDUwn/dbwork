@@ -10,6 +10,8 @@
 </head>
 <body>
 <%
+response.setContentType("text/html;charset=utf-8");  
+request.setCharacterEncoding("utf-8");
  String name=request.getParameter("name");//获取name的参数值
  String password=request.getParameter("password");//获取password的参数值
  String admin=request.getParameter("admin");

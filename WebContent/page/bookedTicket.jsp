@@ -3,6 +3,7 @@
 <%@ page import="Db.Dbutil" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="Bean.Ticket" %>
+<%@ page import="Bean.Flight" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +22,13 @@ Dbutil util=new Dbutil();
 String SQL="";
 ResultSet rs=null;
 %>
+<div id="div1">
 <table class="layui-table" lay-size='sm' id="booked_tickets" >
   <thead>
     <tr>
     	<th>订单编号</th>
       	<th>航班号</th>
+      	<th>飞行时间</th>
        	<th>乘客姓名</th>
        	<th>机舱号</th>
         <th>座位号</th>
@@ -36,6 +39,7 @@ ResultSet rs=null;
         <th>到达时间</th>
         <th>到达城市</th>
         <th>到达机场</th>
+        <th>改签</th>
         <th>退票</th>
     </tr> 
   </thead>
@@ -45,7 +49,7 @@ SQL="";
 SQL+=" select ticket_ID,ticket.flight_ID,ticket.passenger_ID,passenger_name,price, ";
 SQL+=" start_time,end_time,aa.airport_name as start_airport,bb.airport_name as end_airport,aa.city as start_city,bb.city as end_city,cabin_type,seat_location ";
 SQL+=" from ticket,passenger,flight,airport as aa,airport as bb,plane_seat ";
-SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='normal' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
+SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='已订' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
 SQL+=" and flight.start_ID=aa.airport_ID and flight.end_ID=bb.airport_ID ";
 SQL+=" and flight.plane_ID=plane_seat.plane_ID and ticket.seat_ID=plane_seat.seat_ID ";
 rs=util.query(SQL);
@@ -67,6 +71,7 @@ while(rs.next()){
 		<tr>
 		   	<td><%=ticket.ticket_id %></td>
     		<td><%=ticket.flight_id %></td>
+    		<td><%=new Flight().getTime(ticket.start_time,ticket.end_time) %>
     		<td><%=ticket.passenger_name %></td>
     		<td><%=ticket.cabin_type %></td>
     		<td><%=ticket.seat_location %></td>
@@ -77,6 +82,7 @@ while(rs.next()){
     		<td><%=ticket.end_time %></td>
     		<td><%=ticket.end_city %></td>
     	    <td><%=ticket.end_airport %></td>
+    	    <td><input type="button" class="layui-btn layui-btn-xs" name="change" value="改签"></td>
     		<td><input type="button" class="layui-btn layui-btn-xs" name="return" value="退订"></td>
     	</tr>
 
@@ -86,19 +92,34 @@ util.close();
 %>
 </tbody>
 </table>
+</div>
 
 </body>
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
+var ticket_ID;
 $(function() {
-	$("#booked_tickets").on("click", ":button", function(event) {
+	$("#div1").on("click", ":button", function(event) {
+		if($(this).attr("name")=='return'){
 		ticket_ID=$(this).closest("tr").find("td").eq(0).text();
 		createXMLHttpRequest();
 		var url = "doReturn.jsp?ticket_ID='"+ticket_ID+"'";  
 	    XMLHttpReq.open("GET", url, true);  
 	    XMLHttpReq.onreadystatechange = processResponse;//指定响应函数  
 	    XMLHttpReq.send(null);
+		}else if($(this).attr("name")=='change'){
+			ticket_ID=$(this).closest("tr").find("td").eq(0).text();
+			createXMLHttpRequest();
+			var url = "changeFlight.jsp?ticket_ID="+ticket_ID+"";  
+		    XMLHttpReq.open("GET", url, true);  
+		    XMLHttpReq.onreadystatechange = processResponse1;//指定响应函数  
+		    XMLHttpReq.send(null);
+		}else{
+			flight_ID=$(this).closest("tr").find("td").eq(0).text();
+			var url = "doChange.jsp?flight_ID="+flight_ID+"&ticket_ID="+ticket_ID+"";  
+		    window.location.href=url;
+		}
 	});
 });
 function createXMLHttpRequest() {  
@@ -124,6 +145,16 @@ function processResponse() {
         }  
     }  
 }
+function processResponse1() {  
+    if (XMLHttpReq.readyState == 4) { // 判断对象状态  
+        if (XMLHttpReq.status == 200) { // 信息已经成功返回，开始处理信息  
+            document.getElementById("div1").innerHTML=XMLHttpReq.responseText;
+        } else { 
+            window.alert("您所请求的页面有异常。");  
+        }  
+    }  
+}
+
 </script>
 
 </html>
