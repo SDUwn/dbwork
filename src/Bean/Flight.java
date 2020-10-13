@@ -15,6 +15,7 @@ public class Flight {
 	public String company_name;
 	public String start_airport;
 	public String end_airport;
+	public int remain;
 	public Flight() {
 		flight_id=-1;
 		flight_state=null;

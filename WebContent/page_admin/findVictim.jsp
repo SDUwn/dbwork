@@ -37,7 +37,7 @@ while(rs.next()){
 	      <br>
 	      <%=rs.getString("end_time") %>，该乘客在<%=rs.getString("end_city") %>市的<%=rs.getString("end_airport") %>机场落地。
 	      <br>
-	      <a href="findOthers.jsp?flightID=<%=rs.getString("flightID") %>">查看该航班同行乘客</a>
+	      <a href="findOthers.jsp?flightID=<%=rs.getString("flightID") %>">查看该航班乘客</a>
 	  </div>
     </div>
   </li>

@@ -14,6 +14,278 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+<style>
+body {
+	font-size: 12px;
+	line-height: 1.5;
+	font-family: Arial,"Hiragino Sans GB",宋体,sans-serif;
+	color: #333;
+}
+
+.base_main {
+	width: 945px;
+	margin-right: 0px;
+	float: right;
+}
+.version3 .base_main {
+	width: 945px;
+	margin-right: 0px;
+	float: right;
+}
+/* @media screen and (max-width:1250px) */
+.version3 .base_main {
+	width: 980px;
+	margin: 0;
+}
+#base_bd {
+	zoom: 1;
+	width: 1180px;
+	margin: 0 auto;
+	padding: 0;
+	position: relative;
+}
+/* @media screen and (max-width:1250px) */
+#base_bd {
+	width: 980px;
+	overflow: hidden;
+}
+.flight_card_content {
+	border-bottom: 1px solid #eaeaea;
+}
+.search_table_header {
+	width: auto;
+	background-color: #fff;
+	position: relative;
+}
+.search_box .day-lowest {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-size: 12px;
+	background: rgba(38,194,142,0.1);
+	color: #00a876;
+	padding: 2px 20px 2px 10px;
+	border-bottom-right-radius: 18px 36px;
+	background: -o-linear-gradient(150deg, transparent 12px, rgba(38,194,142,0.1) 0) bottom right;
+	background: linear-gradient(-60deg, transparent 12px, rgba(38,194,142,0.1) 0) bottom right;
+}
+.right {
+	text-align: right;
+}
+.center {
+	text-align: center;
+}
+.left {
+	text-align: left;
+}
+.middle {
+	vertical-align: middle;
+}
+.inb {
+	display: inline-block;
+}
+.search_table_header .inb {
+	padding: 28px 5px 24px;
+	vertical-align: top;
+}
+.search_table_header .logo {
+	width: 168px;
+	padding-right: 0px;
+	white-space: nowrap;
+}
+.search_table_header .right {
+	padding-left: 0px;
+	width: 126px;
+}
+/* @media screen and (max-width:1250px) */
+.search_box_light .search_table_header .right {
+	width: 156px;
+}
+.search_table_header .center {
+	position: relative;
+	width: 86px;
+	height: 45px;
+	text-align: center;
+}
+.search_table_header .left {
+	width: 130px;
+	padding-right: 0px;
+}
+/* @media screen and (max-width:1250px) */
+.search_box_light .search_table_header .left {
+	width: 150px;
+}
+.search_box .search_table_header .service {
+	width: 40px;
+	padding-left: 0px;
+	text-align: center;
+	padding-right: 15px;
+}
+.search_box .search_table_header .label {
+	width: 128px;
+	text-align: right;
+	vertical-align: middle;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.search_table_header .price {
+	padding-right: 0px;
+	width: 90px;
+	text-align: right;
+}
+.search_box .search_table_header .price {
+	width: 114px;
+	vertical-align: middle;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.search_table_header .price.child_price, .search_transfer_header .price.child_price {
+	position: relative;
+	padding-top: 20px;
+	vertical-align: top;
+}
+.search_table_header .middle {
+	vertical-align: middle;
+}
+.search_box .search_table_header .book {
+	width: 65px;
+	padding-left: 15px;
+	padding-right: 0px;
+}
+.btn_book {
+	width: 44px;
+	padding: 2px 0;
+	line-height: 14px;
+	border: 1px solid #E77C00;
+	border-radius: 3px;
+	-webkit-box-shadow: 0 1px 0 #8F6F4C;
+	box-shadow: 0px 1px 0px #8f6f4c;
+	color: green;
+	font-weight: bold;
+	background-color: #ffb000;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	cursor: pointer;
+	outline: none;
+}
+.search_box .btn_book, .search_box_vip .btn_book, .search_box .btn_disable, .search_box .alternates, .benefit_flt .btn_book, .benefit_flt .btn_disable, .near_flt .btn_book {
+	display: inline-block;
+	line-height: 16px;
+	font-size: 14px;
+	width: 65px;
+	padding: 5px 0 4px;
+	text-align: center;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.search_box .btn_book, .search_box_vip .btn_book {
+	border-color: #ff9913;
+}
+.search_table_header .btn_book {
+	width: 65px;
+	margin-top: 2px;
+}
+.cabinV2 .btn_book {
+	border-radius: 4px;
+	background: -o-linear-gradient(right, #FCAD00 0%, #FF7528 100%);
+	background: -webkit-gradient(linear, left top, right top, from(#FCAD00), to(#FF7528));
+	background: -o-linear-gradient(left, #FCAD00, #FF7528);
+	background: linear-gradient(to right, #FCAD00, #FF7528);
+}
+.cabinV2 .btn_book > b {
+	background-color: transparent;
+	border-left: 5px solid transparent !important;
+	border-right: 5px solid transparent !important;
+}
+.search_table_header .btn_book.arrow_down b {
+	border-left: 5px solid #FFB000;
+	border-right: 5px solid #FFB000;
+	border-bottom: 0 none transparent;
+	border-top: 5px solid #fff;
+}
+.base_price02 {
+	font-size: 17px;
+	color: #ff6600;
+	line-height: 100%;
+}
+.base_price02 {
+	font-family: tahoma;
+}
+.lowest_price .base_price02 {
+	color: #bb0000;
+}
+.search_table_header .base_price02 {
+	font-size: 30px;
+}
+.search_table_header .price.child_price .base_price02, .search_transfer_header .price.child_price .base_price02 {
+	font-size: 22px;
+}
+em, i {
+	font-style: normal;
+}
+.search_table_header .price i {
+	font-style: normal;
+	vertical-align: bottom;
+	*vertical-align:3px: ;
+}
+.flight_price_tips {
+	position: absolute;
+	right: 0px;
+}
+.flight_price_tips div {
+	line-height: 16px;
+	color: #999;
+	white-space: nowrap;
+}
+dfn {
+	font-style: normal;
+	font-family: Arial;
+}
+.base_price02 dfn {
+	font-size: 12px;
+	color: #333;
+	font-family: Arial,Simsun;
+	vertical-align: top;
+	*vertical-align:3px: ;
+	margin-right: 2px;
+}
+.lowest_price .base_price02 dfn {
+	color: #bb0000;
+}
+.search_table_header .base_price02 dfn {
+	line-height: 22px;
+	*vertical-align:12px: ;
+}
+.search_table_header .service .service-item {
+	display: inline-block;
+	*display:inline: ;
+	*zoom:1: ;
+	color: #999;
+	text-align: center;
+	white-space: nowrap;
+}
+.search_box .search_table_header .service > div {
+	display: inline-block;
+	*display:inline: ;
+	*zoom:1: ;
+}
+.clearfix {
+	*zoom:1: ;
+}
+.search_table_header .time_box {
+	position: relative;
+}
+.search_box .search_table_header .time_box {
+	position: relative;
+}
+.search_table_header .time {
+	font-size: 17px;
+	line-height: 20px;
+	font-family: Tahoma,Arial,sans-serif;
+}
+
+</style>
 </head>
 
 <%
@@ -22,9 +294,9 @@ request.setCharacterEncoding("utf-8");
 String ID=session.getAttribute("ID").toString();
 String cert_num="null";
 Dbutil util=new Dbutil();
-String SQL="";
+String SQL="",SQL1="";
 SQL="select cernum from passenger where user_ID='"+ID+"'";
-ResultSet rs;
+ResultSet rs=null,rs1=null;
 rs=util.query(SQL);
 if(rs.next())
 	cert_num=rs.getString("cernum");
@@ -51,25 +323,7 @@ System.out.println(cert_num);
     </div>
     &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp<input type="button" class="layui-btn" value="查询" onclick="search()">
 </div>
-
 <div id="div1">
-<table class="layui-table">
-  <thead>
-    <tr>
-      	<th>航班号</th>
-      	<th>飞行时间</th>
-       	<th>出发城市</th>
-       	<th>出发机场</th>
-        <th>出发时间</th>
-        <th>到达城市</th>
-        <th>到达机场</th>
-        <th>到达时间</th>
-        <th>航空公司</th>
-        <th>票价起步</th>
-        <th>订票</th>
-    </tr> 
-  </thead>
-  <tbody>
     <%
     SQL="SELECT flight_ID,plane_type,company_name,A_price,B_price,C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,end_time from flight,airport as a,airport as b,plane,company where start_ID=a.airport_ID and end_ID=b.airport_ID and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID ";
     rs=util.query(SQL);
@@ -87,29 +341,19 @@ System.out.println(cert_num);
     	flight.start_time=rs.getString("start_time"); 
     	flight.end_time=rs.getString("end_time");
     	flight.plane_type=rs.getString("plane_type");
+    	SQL1="select count(*) from flight_seat where flight_ID='"+flight.flight_id+"' and seat_state='正常' ";
+    	rs1=util.query(SQL1);
+    	if(rs1.next())flight.remain=rs1.getInt(1);
     %>
-    	<tr>
-    		<td><%=flight.flight_id %></td>
-    		<td><%=flight.getTime(flight.start_time, flight.end_time) %></td>
-    		<td><%=flight.start_city %></td>
-    		<td><%=flight.start_airport %></td>
-    		<td><%=flight.start_time %></td>
-    		<td><%=flight.end_city %></td>
-    		<td><%=flight.end_airport %></td>
-    		<td><%=flight.end_time %></td>
-    		<td><%=flight.company_name %></td>
-    		<td><%=flight.C_price %></td>
-    		<td><input type="button" class="layui-btn layui-btn-xs" name="book" value="预定"></td>
-    	</tr>
+    	<div class="flight"><div><div id="base_bd"><div class="base_main"><div class="searchresult_content"><div class="cabinV2"><div><div><div><div class="search_box search_box_tag search_box_light Label_Flight"><div class="flight_card_content"><div class="search_table_header"><div class="day-lowest"><span>当日最低价</span></div><div class="inb logo"><div class="logo-item flight_logo"><div data-ubt-hover="c_flight_aircraftInfo"><span><span><strong><%=flight.company_name %></strong><span class="flight_ID"><%=flight.flight_id %></span></span></span></div></div><div data-ubt-hover="c_flight_aircraftInfo"><span class="direction_black_border low_text"><%=flight.plane_type %></span><div></div></div></div><div class="inb right"><div class="time_box"><strong class="time"><%=flight.start_time %></strong></div><div class="airport"><%=flight.start_city %>&nbsp&nbsp<%=flight.start_airport %></div></div><div class="inb center"><div class="arrow"></div></div><div class="inb left"><div class="time_box"><strong class="time"><%=flight.end_time %></strong><span class="direction_blue_border new_tag" style="display: inline-block; cursor: help;" data-ubt-hover="c_flight_overNight" data-gift-code=""></span></div><div class="airport"><%=flight.end_city %>&nbsp&nbsp<%=flight.end_airport %></div></div><div class="inb service"><div class="service-item">飞行时间<br><div class="clearfix" data-ubt-hover="c_flight_punctualityRate_Flight"><div style="position: relative;"><%=flight.getTime(flight.start_time, flight.end_time) %><div></div></div></div></div></div><div class="inb price child_price lowest_price"><div><span class="base_price02"><dfn>¥</dfn><%=flight.C_price %></span><i>起</i> <br><div class="flight_price_tips"></div></div></div><div class="inb book middle"><button class="btn_book">订票</button><div>余票：<%=flight.remain %></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
     	
     <%
     }
     util.close();
     %>
-  </tbody>
-</table>
 </div>
 <script src="../layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 	    
 var XMLHttpReq; 
@@ -125,8 +369,8 @@ if(<%=cert_num%>==null){
 	type=2;
 }
 $(function() {
-	$("#div1").on("click", ":button", function(event) {
-		flightID=$(this).closest("tr").find("td").eq(0).text();
+	$("#div1").on("click", ".btn_book", function(event) {
+		flightID=$(this).parent().prev().prev().prev().prev().prev().prev().find(".flight_ID").text();
 		if(<%=cert_num%>==null){
 			makelayer1();
 		}else{
@@ -187,7 +431,7 @@ function processResponse() {
 }  
 
 function search(){
-	$("#tab").empty();
+	$("#div1").empty();
 	 startcity=$("#sc").val();
 	 endcity=$("#ec").val();
 	 starttime=$("#st").val();
