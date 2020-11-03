@@ -152,7 +152,7 @@ body {
 	padding-left: 15px;
 	padding-right: 0px;
 }
-.btn_book {
+.btn_book .btn_book_stop .btn_book_stop2{
 	width: 44px;
 	padding: 2px 0;
 	line-height: 14px;
@@ -179,10 +179,44 @@ body {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+.search_box .btn_book_stop, .search_box_vip .btn_book_stop, .search_box .btn_disable, .search_box .alternates, .benefit_flt .btn_book_stop, .benefit_flt .btn_disable, .near_flt .btn_book_stop {
+	display: inline-block;
+	line-height: 16px;
+	font-size: 14px;
+	width: 65px;
+	padding: 5px 0 4px;
+	text-align: center;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+.search_box .btn_book_stop2, .search_box_vip .btn_book_stop2, .search_box .btn_disable, .search_box .alternates, .benefit_flt .btn_book_stop2, .benefit_flt .btn_disable, .near_flt .btn_book_stop2 {
+	display: inline-block;
+	line-height: 16px;
+	font-size: 14px;
+	width: 65px;
+	padding: 5px 0 4px;
+	text-align: center;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
 .search_box .btn_book, .search_box_vip .btn_book {
 	border-color: #ff9913;
 }
+.search_box .btn_book_stop, .search_box_vip .btn_book_stop {
+	border-color: #ff9913;
+}
+.search_box .btn_book_stop2, .search_box_vip .btn_book_stop2 {
+	border-color: #ff9913;
+}
 .search_table_header .btn_book {
+	width: 65px;
+	margin-top: 2px;
+}
+.search_table_header .btn_book_stop {
+	width: 65px;
+	margin-top: 2px;
+}
+.search_table_header .btn_book_stop2 {
 	width: 65px;
 	margin-top: 2px;
 }
@@ -194,6 +228,30 @@ body {
 	background: linear-gradient(to right, #FCAD00, #FF7528);
 }
 .cabinV2 .btn_book > b {
+	background-color: transparent;
+	border-left: 5px solid transparent !important;
+	border-right: 5px solid transparent !important;
+}
+.cabinV2 .btn_book_stop {
+	border-radius: 4px;
+	background: -o-linear-gradient(right, #FCAD00 0%, #FF7528 100%);
+	background: -webkit-gradient(linear, left top, right top, from(#FCAD00), to(#FF7528));
+	background: -o-linear-gradient(left, #FCAD00, #FF7528);
+	background: linear-gradient(to right, #FCAD00, #FF7528);
+}
+.cabinV2 .btn_book_stop2 {
+	border-radius: 4px;
+	background: -o-linear-gradient(right, #FCAD00 0%, #FF7528 100%);
+	background: -webkit-gradient(linear, left top, right top, from(#FCAD00), to(#FF7528));
+	background: -o-linear-gradient(left, #FCAD00, #FF7528);
+	background: linear-gradient(to right, #FCAD00, #FF7528);
+}
+.cabinV2 .btn_book_stop > b {
+	background-color: transparent;
+	border-left: 5px solid transparent !important;
+	border-right: 5px solid transparent !important;
+}
+.cabinV2 .btn_book_stop2 > b {
 	background-color: transparent;
 	border-left: 5px solid transparent !important;
 	border-right: 5px solid transparent !important;
@@ -341,13 +399,22 @@ System.out.println(cert_num);
     	flight.start_time=rs.getString("start_time"); 
     	flight.end_time=rs.getString("end_time");
     	flight.plane_type=rs.getString("plane_type");
-    	SQL1="select count(*) from flight_seat where flight_ID='"+flight.flight_id+"' and seat_state='正常' ";
-    	rs1=util.query(SQL1);
+    	if(util.query("select 1 from flight_seat_1 where flight_ID='"+flight.flight_id+"'").next()) SQL1="select count(*) from flight_seat_1 where flight_ID='"+flight.flight_id+"' and seat_state1='正常' and seat_state2='正常' ";
+		else SQL1="select count(*) from flight_seat where flight_ID='"+flight.flight_id+"' and seat_state='正常' ";
+		rs1=util.query(SQL1);
     	if(rs1.next())flight.remain=rs1.getInt(1);
+    	SQL1="select city,stoptime  from stop,airport where stop.stop_ID=airport.airport_ID and flight_ID='"+flight.flight_id+"' ";
+    	rs1=util.query(SQL1);
+    	if(rs1.next()){flight.stop_airport=rs1.getString("city");flight.stop_time=rs1.getInt("stoptime");
     %>
-    	<div class="flight"><div><div id="base_bd"><div class="base_main"><div class="searchresult_content"><div class="cabinV2"><div><div><div><div class="search_box search_box_tag search_box_light Label_Flight"><div class="flight_card_content"><div class="search_table_header"><div class="day-lowest"><span>当日最低价</span></div><div class="inb logo"><div class="logo-item flight_logo"><div data-ubt-hover="c_flight_aircraftInfo"><span><span><strong><%=flight.company_name %></strong><span class="flight_ID"><%=flight.flight_id %></span></span></span></div></div><div data-ubt-hover="c_flight_aircraftInfo"><span class="direction_black_border low_text"><%=flight.plane_type %></span><div></div></div></div><div class="inb right"><div class="time_box"><strong class="time"><%=flight.start_time %></strong></div><div class="airport"><%=flight.start_city %>&nbsp&nbsp<%=flight.start_airport %></div></div><div class="inb center"><div class="arrow"></div></div><div class="inb left"><div class="time_box"><strong class="time"><%=flight.end_time %></strong><span class="direction_blue_border new_tag" style="display: inline-block; cursor: help;" data-ubt-hover="c_flight_overNight" data-gift-code=""></span></div><div class="airport"><%=flight.end_city %>&nbsp&nbsp<%=flight.end_airport %></div></div><div class="inb service"><div class="service-item">飞行时间<br><div class="clearfix" data-ubt-hover="c_flight_punctualityRate_Flight"><div style="position: relative;"><%=flight.getTime(flight.start_time, flight.end_time) %><div></div></div></div></div></div><div class="inb price child_price lowest_price"><div><span class="base_price02"><dfn>¥</dfn><%=flight.C_price %></span><i>起</i> <br><div class="flight_price_tips"></div></div></div><div class="inb book middle"><button class="btn_book">订票</button><div>余票：<%=flight.remain %></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+    	<div class="flight"><div><div id="base_bd"><div class="base_main"><div class="searchresult_content"><div class="cabinV2"><div><div><div><div class="search_box search_box_tag search_box_light Label_Flight"><div class="flight_card_content"><div class="search_table_header"><div class="day-lowest"><span>当日最低价</span></div><div class="inb logo"><div class="logo-item flight_logo"><div data-ubt-hover="c_flight_aircraftInfo"><span><span><strong><%=flight.company_name %></strong><span class="flight_ID"><%=flight.flight_id %></span></span></span></div></div><div data-ubt-hover="c_flight_aircraftInfo"><span class="direction_black_border low_text"><%=flight.plane_type %></span><div></div></div></div><div class="inb right"><div class="time_box"><strong class="time"><%=flight.start_time %></strong></div><div class="airport"><%=flight.start_city %>&nbsp&nbsp<%=flight.start_airport %></div></div><div class="inb center"><div class="arrow">经停：<%=flight.stop_airport %>（<%=flight.stop_time %>min)<br>----></div></div><div class="inb left"><div class="time_box"><strong class="time"><%=flight.end_time %></strong><span class="direction_blue_border new_tag" style="display: inline-block; cursor: help;" data-ubt-hover="c_flight_overNight" data-gift-code=""></span></div><div class="airport"><%=flight.end_city %>&nbsp&nbsp<%=flight.end_airport %></div></div><div class="inb service"><div class="service-item">飞行时间<br><div class="clearfix" data-ubt-hover="c_flight_punctualityRate_Flight"><div style="position: relative;"><%=flight.getTime(flight.start_time, flight.end_time) %><div></div></div></div></div></div><div class="inb price child_price lowest_price"><div><span class="base_price02"><dfn>¥</dfn><%=flight.C_price %></span><i>起</i> <br><div class="flight_price_tips"></div></div></div><div class="inb book middle"><button class="btn_book">订票</button><div>余票：<%=flight.remain %></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
     	
     <%
+    }else{
+    	%>
+    	<div class="flight"><div><div id="base_bd"><div class="base_main"><div class="searchresult_content"><div class="cabinV2"><div><div><div><div class="search_box search_box_tag search_box_light Label_Flight"><div class="flight_card_content"><div class="search_table_header"><div class="day-lowest"><span>当日最低价</span></div><div class="inb logo"><div class="logo-item flight_logo"><div data-ubt-hover="c_flight_aircraftInfo"><span><span><strong><%=flight.company_name %></strong><span class="flight_ID"><%=flight.flight_id %></span></span></span></div></div><div data-ubt-hover="c_flight_aircraftInfo"><span class="direction_black_border low_text"><%=flight.plane_type %></span><div></div></div></div><div class="inb right"><div class="time_box"><strong class="time"><%=flight.start_time %></strong></div><div class="airport"><%=flight.start_city %>&nbsp&nbsp<%=flight.start_airport %></div></div><div class="inb center"><div class="arrow">----></div></div><div class="inb left"><div class="time_box"><strong class="time"><%=flight.end_time %></strong><span class="direction_blue_border new_tag" style="display: inline-block; cursor: help;" data-ubt-hover="c_flight_overNight" data-gift-code=""></span></div><div class="airport"><%=flight.end_city %>&nbsp&nbsp<%=flight.end_airport %></div></div><div class="inb service"><div class="service-item">飞行时间<br><div class="clearfix" data-ubt-hover="c_flight_punctualityRate_Flight"><div style="position: relative;"><%=flight.getTime(flight.start_time, flight.end_time) %><div></div></div></div></div></div><div class="inb price child_price lowest_price"><div><span class="base_price02"><dfn>¥</dfn><%=flight.C_price %></span><i>起</i> <br><div class="flight_price_tips"></div></div></div><div class="inb book middle"><button class="btn_book">订票</button><div>余票：<%=flight.remain %></div></div></div></div></div></div></div></div></div></div></div></div></div></div>
+    	<% 
+    }
     }
     util.close();
     %>
@@ -374,13 +441,33 @@ $(function() {
 		if(<%=cert_num%>==null){
 			makelayer1();
 		}else{
-			makelayer(flightID);
+			makelayer(flightID,0,0);
+		}
+	});
+});
+$(function() {
+	$("#div1").on("click", ".btn_book_stop", function(event) {
+		flightID=$(this).parent().prev().prev().prev().prev().prev().prev().find(".flight_ID").text();
+		if(<%=cert_num%>==null){
+			makelayer1();
+		}else{
+			makelayer(flightID,1,0);
+		}
+	});
+});
+$(function() {
+	$("#div1").on("click", ".btn_book_stop2", function(event) {
+		flightID=$(this).parent().prev().prev().prev().prev().prev().prev().find(".flight_ID").text();
+		if(<%=cert_num%>==null){
+			makelayer1();
+		}else{
+			makelayer(flightID,0,1);
 		}
 	});
 });
 var layer;
-function makelayer(flightID){
-	window.location.href="generateTicket.jsp"+"?flight_ID="+flightID+" ";
+function makelayer(flightID,stop1,stop2){
+	window.location.href="generateTicket.jsp?flight_ID="+flightID+"&stop1="+stop1+"&stop2="+stop2+" ";
 }
 function makelayer1(){
 	layui.use('layer', function(){

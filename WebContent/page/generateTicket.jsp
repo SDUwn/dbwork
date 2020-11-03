@@ -20,18 +20,20 @@
 response.setContentType("text/html;charset=utf-8");  
 request.setCharacterEncoding("utf-8");
 String flight_ID=request.getParameter("flight_ID");
+int stop1=Integer.parseInt(request.getParameter("stop1"));
+int stop2=Integer.parseInt(request.getParameter("stop2"));
 String cert_num=session.getAttribute("cert_num").toString();
 String user_ID=session.getAttribute("ID").toString();
 Dbutil util=new Dbutil();
 String SQL="";
 ResultSet rs=null;
 %>
-<form class="layui-form" action="doBook.jsp" method="post">
+<form class="layui-form" action="doBook.jsp?stop1=<%=stop1 %>&&stop2=<%=stop2 %>" method="post">
 	<div class="layui-form-item">
 	 <label class="layui-form-label">选择乘客</label>
 	 <button class="layui-btn layui-btn-primary" type="button" onclick="addPass();">添加乘客</button>
      <div class="layui-input-inline">
-      <select name="passenger">
+      <select name="passenger"> 
         <%
         SQL="select passenger_name,cernum from passenger where user_ID='"+user_ID+"' and state='正常' ";
         rs=util.query(SQL);
@@ -56,11 +58,31 @@ ResultSet rs=null;
     <div class="layui-input-block">
     <ul>
      <%
+     if(stop1==0&&stop2==0){
+    	if(util.query("select 1 from stop where flight_ID='"+flight_ID+"'").next()){
+    		SQL=" select flight_seat_1.seat_ID,cabin_type,seat_type,seat_location,A_price,B_price,C_price ";
+    		SQL+=" FROM plane_seat,flight_seat_1,flight ";
+    		SQL+=" where flight.flight_ID='"+flight_ID+"' and seat_state1='正常' and seat_state2='正常' and flight.plane_ID=plane_seat.plane_ID ";
+    		SQL+=" and flight_seat_1.flight_ID=flight.flight_ID ";
+    		SQL+=" and plane_seat.seat_ID=flight_seat_1.seat_ID ";
+    		SQL+=" order by seat_location ";
+    	}else{
         SQL=" select flight_seat.seat_ID,cabin_type,seat_type,seat_location,A_price,B_price,C_price ";
         SQL+=" FROM plane_seat,flight_seat,flight ";
         SQL+=" where seat_state='正常' and flight.plane_ID=plane_seat.plane_ID ";
         SQL+=" and flight_seat.flight_ID=flight.flight_ID and flight.flight_ID='"+flight_ID+"' ";
-        SQL+=" and plane_seat.seat_ID=flight_seat.seat_ID order by seat_location" ;
+        SQL+=" and plane_seat.seat_ID=flight_seat.seat_ID order by seat_location" ;}
+     }else if(stop1==1&&stop2==0){
+    	 SQL=" SELECT flight_seat_1.seat_ID,A1_price as A_price,B1_price as B_price,C1_price as C_price,seat_type,seat_location,cabin_type ";
+    	 SQL+=" from flight_seat_1,stop,plane_seat,flight ";
+         SQL+=" where flight_seat_1.flight_ID='"+flight_ID+"' and seat_state1='正常' and stop.flight_ID=flight_seat_1.flight_ID ";
+         SQL+=" and plane_seat.seat_ID=flight_seat_1.seat_ID and flight_seat_1.flight_ID=flight.flight_ID and flight.plane_ID=plane_seat.plane_ID ";    	 
+     }else{
+    	 SQL=" SELECT flight_seat_1.seat_ID,A2_price as A_price,B2_price as B_price,C2_price as C_price,seat_type,seat_location,cabin_type ";
+    	 SQL+=" from flight_seat_1,stop,plane_seat,flight ";
+         SQL+=" where flight_seat_1.flight_ID='"+flight_ID+"' and seat_state2='正常' and stop.flight_ID=flight_seat_1.flight_ID ";
+         SQL+=" and plane_seat.seat_ID=flight_seat_1.seat_ID and flight_seat_1.flight_ID=flight.flight_ID and flight.plane_ID=plane_seat.plane_ID ";    	 
+     }
         rs=util.query(SQL);
         Seat seat=new Seat();
         while(rs.next()){

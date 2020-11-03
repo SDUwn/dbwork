@@ -44,10 +44,10 @@ ResultSet rs=null;
   <tbody>
 <%
 SQL="";
-SQL+=" select ticket_ID,ticket.flight_ID,ticket.passenger_ID,passenger_name,price, ";
+SQL+=" select ticket_ID,ticket.flight_ID,ticket.passenger_ID,passenger_name,price,isStop1,isStop2, ";
 SQL+=" start_time,end_time,aa.airport_name as start_airport,bb.airport_name as end_airport,aa.city as start_city,bb.city as end_city,cabin_type,seat_location ";
 SQL+=" from ticket,passenger,flight,airport as aa,airport as bb,plane_seat ";
-SQL+=" where passenger.user_ID='"+user_ID+"' and ticket_state='过期' and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
+SQL+=" where passenger.user_ID='"+user_ID+"' and (ticket_state='受限' or ticket_state='已用' or ticket_state='过期') and cernum=passenger_ID and ticket.flight_ID=flight.flight_ID "; 
 SQL+=" and flight.start_ID=aa.airport_ID and flight.end_ID=bb.airport_ID ";
 SQL+=" and flight.plane_ID=plane_seat.plane_ID and ticket.seat_ID=plane_seat.seat_ID ";
 rs=util.query(SQL);
@@ -59,12 +59,34 @@ while(rs.next()){
 	ticket.cabin_type=rs.getString("cabin_type");
 	ticket.seat_location=rs.getString("seat_location");
 	ticket.price=rs.getDouble("price");
+	if(rs.getString("isStop1").equals("1")){
+		ticket.start_time=rs.getString("start_time");
+		ticket.start_city=rs.getString("start_city");
+		ticket.start_airport=rs.getString("start_airport");
+		String newSQL="select city,arrivetime,airport_name from stop,airport where flight_ID='"+ticket.flight_id+"' and stop_ID=airport_ID ";
+		ResultSet rss=util.query(newSQL);
+		if(rss.next()){
+		ticket.end_time=rss.getString("arrivetime");
+		ticket.end_city=rss.getString("city");
+		ticket.end_airport=rss.getString("airport_name");}
+	}else if(rs.getString("isStop2").equals("1")){
+		String newSQL="select city,arrivetime,airport_name from stop,airport where flight_ID='"+ticket.flight_id+"' and stop_ID=airport_ID ";
+		ResultSet rss=util.query(newSQL);
+		if(rss.next()){
+		ticket.start_time=rss.getString("arrivetime");
+		ticket.start_city=rss.getString("city");
+		ticket.start_airport=rss.getString("airport_name");}
+		ticket.end_time=rs.getString("end_time");
+		ticket.end_city=rs.getString("end_city");
+		ticket.end_airport=rs.getString("end_airport");
+	}else{
 	ticket.start_time=rs.getString("start_time");
 	ticket.start_city=rs.getString("start_city");
 	ticket.start_airport=rs.getString("start_airport");
 	ticket.end_time=rs.getString("end_time");
 	ticket.end_city=rs.getString("end_city");
 	ticket.end_airport=rs.getString("end_airport");
+	}
 %>
 		<tr>
 		   	<td><%=ticket.ticket_id %></td>
