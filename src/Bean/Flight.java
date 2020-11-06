@@ -17,7 +17,8 @@ public class Flight {
 	public String end_airport;
 	public int remain;
 	public int stop_time;
-	public String stop_airport;
+	public String stop_airport,stop_city,arrive_time;
+	public double A1_price,B1_price,C1_price,A2_price,B2_price,C2_price;
 	public Flight() {
 		flight_id=-1;
 		flight_state=null;

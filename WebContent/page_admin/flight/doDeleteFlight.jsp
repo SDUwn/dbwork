@@ -15,7 +15,7 @@ System.out.println(flight_ID);
 Dbutil util=new Dbutil();
 ResultSet rs=null;
 String SQL="";
-SQL="select * from ticket where flight_ID='"+flight_ID+"' ";
+SQL="select * from ticket where flight_ID='"+flight_ID+"' and ticket_state='已订' ";
 rs=util.query(SQL);
 if(rs.next()){
 	%>
@@ -29,6 +29,10 @@ if(rs.next()){
 }
 SQL="delete from flight where flight_ID='"+flight_ID+"' ";
 util.update(SQL);
+if(util.query("select 1 from stop where flight_ID='"+flight_ID+"' ").next()){
+	SQL="delete from stop where flight_ID='"+flight_ID+"' ";
+	util.update(SQL);
+}
 util.close();
 %>
 <script type="text/javascript">window.location.href="../ticket_admin.jsp"</script>

@@ -63,7 +63,7 @@ if(starttime.equals("")){
 <%
 SQL=" select flight.flight_ID as flight_id,plane_type,company_name,`stop`.A1_price as A_price,`stop`.B1_price as B_price,`stop`.C1_price as C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,start_time,arrivetime as end_time ";
 SQL+=" from stop,flight,airport as a,airport as b,company,plane ";
-SQL+=" where a.city='"+startcity+"' and b.city='"+endcity+"' and flight.start_ID=a.airport_ID and `stop`.stop_ID=b.airport_ID and `stop`.flight_ID=flight.flight_ID ";
+SQL+=" where date(start_time)>='"+starttime+"' and a.city='"+startcity+"' and b.city='"+endcity+"' and flight.start_ID=a.airport_ID and `stop`.stop_ID=b.airport_ID and `stop`.flight_ID=flight.flight_ID ";
 SQL+=" and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID ";
 rs1=util.query(SQL);
 while(rs1.next()){
@@ -91,7 +91,7 @@ while(rs1.next()){
 <%
 SQL=" select flight.flight_ID as flight_id,plane_type,company_name,`stop`.A2_price as A_price,`stop`.B2_price as B_price,`stop`.C2_price as C_price,a.city as start_city,b.city as end_city,a.airport_name as start_airport,b.airport_name as end_airport,arrivetime as start_time,end_time ";
 SQL+=" from stop,flight,airport as a,airport as b,company,plane ";
-SQL+=" where a.city='"+startcity+"' and b.city='"+endcity+"' and flight.end_ID=b.airport_ID and `stop`.stop_ID=a.airport_ID and `stop`.flight_ID=flight.flight_ID ";
+SQL+=" where date(arrivetime)>='"+starttime+"' a.city='"+startcity+"' and b.city='"+endcity+"' and flight.end_ID=b.airport_ID and `stop`.stop_ID=a.airport_ID and `stop`.flight_ID=flight.flight_ID ";
 SQL+=" and flight.plane_ID=plane.plane_ID and flight_state='正常' and plane.company_ID=company.company_ID ";
 rs1=util.query(SQL);
 while(rs1.next()){

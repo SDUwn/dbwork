@@ -113,6 +113,53 @@ String SQL="";
       <input id="C_price" name="C_price" class="layui-input" type="number" required="required">
     </div>
   	</div>
+  	  <div class="layui-form-item">
+	 <label class="layui-form-label">经停地</label>
+     <div class="layui-input-inline">
+      <select name="stop">
+      	<option value="null" ></option>
+        <%
+        SQL="select * from airport ";
+        rs=util.query(SQL);
+        Airport app=new Airport();
+        while(rs.next()){
+        	app.airport_ID=rs.getInt("airport_ID");
+        	app.airport_name=rs.getString("airport_name");
+        	app.city=rs.getString("city");
+        %>
+        <option value="<%=app.airport_ID %>">机场编号：<%=app.airport_ID %>&nbsp&nbsp机场名称：<%=app.airport_name %>&nbsp&nbsp城市：<%=app.city %></option>
+        <%} %>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">到站时间</label>
+    <div class="layui-input-inline">
+      <input id="arrivetime" name="arrivetime" class="layui-input" type="text" >
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">经停时间</label>
+    <div class="layui-input-inline">
+      <input id="stoptime" name="stoptime" class="layui-input" type="text" placeholder="分钟">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">前段价格</label>
+    <div class="layui-input-inline">
+      <input id="A1_price" name="A1_price" class="layui-input" type="text" placeholder="头等舱">
+      <input id="B1_price" name="B1_price" class="layui-input" type="text" placeholder="商务舱">
+      <input id="C1_price" name="C1_price" class="layui-input" type="text" placeholder="经济舱">
+    </div>
+  </div>
+    <div class="layui-form-item">
+    <label class="layui-form-label">后段价格</label>
+    <div class="layui-input-inline">
+      <input id="A2_price" name="A2_price" class="layui-input" type="text" placeholder="头等舱">
+      <input id="B2_price" name="B2_price" class="layui-input" type="text" placeholder="商务舱">
+      <input id="C2_price" name="C2_price" class="layui-input" type="text" placeholder="经济舱">
+    </div>
+  </div>
   	<div class="layui-form-item">
 	    <div class="layui-input-block">
 	      <button class="layui-btn" type="submit">提交</button>
@@ -132,8 +179,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    elem: '#st' //指定元素
 	    ,type:'datetime'
 	  });
-laydate.render({
+  laydate.render({
 	    elem: '#et' //指定元素
+	    ,type:'datetime'
+	  });
+  laydate.render({
+	    elem: '#arrivetime' //指定元素
 	    ,type:'datetime'
 	  });
 });

@@ -12,12 +12,23 @@ String SQL="";
 if(state.equals("禁用")){
 SQL="update passenger set state='受限' where cernum='"+passenger_ID+"' ";
 util.update(SQL);
-SQL="update ticket set ticket_state='受限' where ticket_state='已订' and passenger_ID='"+passenger_ID+"' ";
+SQL="update ticket set ticket_state='受限'  where ticket_state='已订' and passenger_ID='"+passenger_ID+"' ";
 util.update(SQL);
-SQL="update flight_seat "; 
-SQL+=" set seat_state='正常' ";
-SQL+=" where (flight_ID,seat_ID) in (select flight_ID,seat_ID from ticket where ticket.passenger_ID="+passenger_ID+") ";
-util.update(SQL);
+SQL="select ticket_ID,flight_ID,isStop1,isStop2 from ticket where passenger_ID='"+passenger_ID+"' ";
+rs=util.query(SQL);
+while(rs.next()){
+	if(util.query("select 1 from stop where flight_ID='"+rs.getString("flight_ID")+"'").next()){
+		if(rs.getString("isStop1").equals("0")&&rs.getString("isStop2").equals("0")){
+			util.update("update flight_seat_1 set seat_state1='正常',seat_state2='正常' where (flight_ID,seat_ID) in(select flight_ID,seat_ID from ticket where ticket_ID='"+rs.getString("ticket_ID")+"' )");
+		}else if(rs.getString("isStop1").equals("1")&&rs.getString("isStop2").equals("0")){
+			util.update("update flight_seat_1 set seat_state1='正常' where (flight_ID,seat_ID) in(select flight_ID,seat_ID from ticket where ticket_ID='"+rs.getString("ticket_ID")+"' )");
+		}else{
+			util.update("update flight_seat_1 set seat_state2='正常' where (flight_ID,seat_ID) in(select flight_ID,seat_ID from ticket where ticket_ID='"+rs.getString("ticket_ID")+"' )");
+		}
+	}else{
+		util.update("update flight_seat set seat_state='正常'  where (flight_ID,seat_ID) in(select flight_ID,seat_ID from ticket where ticket_ID='"+rs.getString("ticket_ID")+"' )");
+	}
+}
 }else{
 	SQL="update passenger set state='正常' where cernum='"+passenger_ID+"' ";
 	util.update(SQL);

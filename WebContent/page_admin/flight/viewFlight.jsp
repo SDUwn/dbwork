@@ -46,8 +46,6 @@ while(rs.next()){
     <div class="layui-input-inline">
       <input name="flight_ID" class="layui-input" type="text" placeholder="<%=flight_ID %>" disabled="disabled">
     </div>
-  </div>
-  <div class="layui-form-item">
     <label class="layui-form-label">飞行时间</label>
     <div class="layui-input-inline">
       <input name="time" class="layui-input" type="text" placeholder="<%=flight.getTime(flight.start_time, flight.end_time) %>" disabled="disabled">
@@ -107,6 +105,63 @@ while(rs.next()){
     		</tr>
     	</table>
   	</div>
+  	<%
+  	SQL="select arrivetime,stoptime,city,airport_name,A1_price,B1_price,C1_price,A2_price,B2_price,C2_price from stop,airport where stop.stop_ID=airport.airport_ID and stop.flight_ID='"+flight_ID+"'";
+  	rs=util.query(SQL);
+  	if(rs.next()){
+  		flight.stop_city=rs.getString("city");
+  		flight.stop_airport=rs.getString("airport_name");
+  		flight.A1_price=rs.getDouble("A1_price");
+  		flight.B1_price=rs.getDouble("B1_price");
+  		flight.C1_price=rs.getDouble("C1_price");
+  		flight.A2_price=rs.getDouble("A2_price");
+  		flight.B2_price=rs.getDouble("B2_price");
+  		flight.C2_price=rs.getDouble("C2_price");
+  		flight.arrive_time=rs.getString("arrivetime"); 
+  		flight.stop_time=rs.getInt("stoptime");
+  		%>
+  <div class="layui-form-item">
+	<label class="layui-form-label">经停城市</label>
+     <div class="layui-input-inline">
+      	<input name="startcity" class="layui-input" type="text" placeholder="<%=flight.stop_city %>" disabled="disabled">
+    </div>
+     <label class="layui-form-label">经停机场</label>
+     <div class="layui-input-inline">
+      	<input name="startAirport" class="layui-input" type="text" placeholder="<%=flight.stop_airport %>" disabled="disabled">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label">到达时间</label>
+    <div class="layui-input-inline">
+      <input id="st" name="starttime" class="layui-input" type="datetime" placeholder="<%=flight.arrive_time %>" disabled="disabled">
+    </div>
+    <label class="layui-form-label">经停时间</label>
+    <div class="layui-input-inline">
+      <input id="et" name="endtime" class="layui-input" type="datetime" placeholder="<%=flight.stop_time %>" disabled="disabled">
+    </div>
+  </div>
+	<div class="layui-form-item">
+    	<table class="layui-table">
+    		<tr>
+    			<td>头等舱价格</td>
+    			<td>商务舱价格</td>
+    			<td>普通舱价格</td>
+    		</tr>
+    		<tr>
+    			<td><%=flight.A1_price %>(前段)</td>
+    			<td><%=flight.B1_price %>(前段)</td>
+    			<td><%=flight.C1_price %>(前段)</td>
+    		</tr>
+    		<tr>
+    			<td><%=flight.A2_price %>(后段)</td>
+    			<td><%=flight.B2_price %>(后段)</td>
+    			<td><%=flight.C2_price %>(后段)</td>
+    		</tr>
+    	</table>
+  	</div>
+  		<% 
+  	}
+  	%>
   	<div class="layui-form-item">
 	    <div class="layui-input-block">
 	      <button class="layui-btn" onclick="test()">返回</button>
