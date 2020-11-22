@@ -470,27 +470,9 @@ function makelayer(flightID,stop1,stop2){
 	window.location.href="generateTicket.jsp?flight_ID="+flightID+"&stop1="+stop1+"&stop2="+stop2+" ";
 }
 function makelayer1(){
-	layui.use('layer', function(){
-		  var layer = layui.layer;
-			      layer.open({
-			        type: type
-			        ,offset: "auto" 
-			        ,content:content_html
-			        ,btn: ['确定','取消']
-			        ,btnAlign: 'c' 
-			        ,shade: 0 
-			        ,yes: function(){
-			          layer.closeAll();
-			          window.location.href="changeMyself.jsp";
-			        }
-			        ,btn2:function(){
-			        	layer.closeAll();
-			        }
-			      });
-		});
+	alert("暂无乘客信息，请先去完善！");
+	window.location.href="changeMyself.jsp";
 }
-	  
-	  
 function createXMLHttpRequest() {  
     if(window.XMLHttpRequest) { //Mozilla 浏览器  
         XMLHttpReq = new XMLHttpRequest();  
